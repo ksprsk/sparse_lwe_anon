@@ -1,13 +1,13 @@
 """
 Parameter sweep runner for sparse LWE experiments.
 
-5개 파라미터(m, n, k, q, σ)를 각각 sweep하며
-정리 조건 LHS = m·k·q / (n · 3^(k-1) · σ · ln(3n)) 의 경험적 임계값을 측정.
+Sweeps each of the 5 parameters (m, n, k, q, sigma) and measures
+the empirical threshold of LHS = m*k*q / (n * 3^(k-1) * sigma * ln(3n)).
 
 Usage:
-    python sweep.py              # 5개 sweep 전체 실행
-    python sweep.py m n          # m, n sweep만 실행
-    python sweep.py --list       # 실험 목록 출력
+    python sweep.py              # run all 5 sweeps
+    python sweep.py m n          # run only m, n sweeps
+    python sweep.py --list       # list available sweeps
 """
 from attack_dp import run_experiment
 import csv

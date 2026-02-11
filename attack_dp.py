@@ -45,7 +45,7 @@ def sample_instance(n, m, k, q, sigma, seed=0):
 
 # ============== Core computation (No FFT) ==============
 def W_to_log_contrib(W):
-    """W[3] -> log-contribution[3] 변환"""
+    """W[3] -> log-contribution[3]"""
     Z = W.sum()
     if Z > 0:
         return np.where(W > 0, np.log(W / Z), -1e10)
@@ -56,7 +56,7 @@ def dp_forward(cnt, a, q):
     return cnt + np.roll(cnt, a) + np.roll(cnt, -a)
 
 def compute_row_contributions_naive(t, A, b, supports, q, weight):
-    """row t의 모든 변수에 대한 contribution을 naive DP로 계산"""
+    """Compute contributions for all variables in row t via naive DP."""
     S = supports[t]
     base = int(b[t])
     num_vars = len(S)
@@ -67,7 +67,7 @@ def compute_row_contributions_naive(t, A, b, supports, q, weight):
     support_list = [int(j) for j in S]
     a_vals = [int(A[t, j]) for j in support_list]
 
-    # Single variable: weight만 사용
+    # Single variable
     if num_vars == 1:
         i, a = support_list[0], a_vals[0]
         W = np.array([weight[(base + a) % q], weight[base], weight[(base - a) % q]])
@@ -75,17 +75,17 @@ def compute_row_contributions_naive(t, A, b, supports, q, weight):
 
     result = {}
 
-    # 각 변수 i에 대해, i를 제외한 나머지로 DP
+    # For each variable i, DP over the remaining variables
     for idx, i in enumerate(support_list):
         cnt = np.zeros(q, dtype=np.float64)
         cnt[0] = 1.0
 
-        # i를 제외한 모든 변수에 대해 forward DP
+        # Forward DP over all variables except i
         for jdx, j in enumerate(support_list):
             if jdx != idx:
                 cnt = dp_forward(cnt, a_vals[jdx], q)
 
-        # W 계산: cnt[r] * weight[base - a_i*u - r] 의 합
+        # Compute W: sum of cnt[r] * weight[base - a_i*u - r]
         a = a_vals[idx]
         W = np.array([
             np.dot(cnt, np.roll(weight, base + a)),  # u = -1

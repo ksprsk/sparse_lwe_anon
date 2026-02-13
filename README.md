@@ -5,7 +5,6 @@ Implementation of the greedy coordinate-recovery attack on sparse-row LWE with t
 ## Files
 
 - `attack_enum.py` — Full-enumeration implementation (Algorithm 1 in the paper). Complexity: O(m·k·3^k).
-- `attack_dp.py` — DP-based implementation. Equivalent output, different internal computation.
 - `sweep.py` — Parameter sweep runner over (m, n, k, q, σ).
 - `plot.py` — Plot generation from sweep results.
 

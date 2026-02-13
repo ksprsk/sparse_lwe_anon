@@ -9,7 +9,7 @@ Usage:
     python sweep.py m n          # run only m, n sweeps
     python sweep.py --list       # list available sweeps
 """
-from attack_dp import run_experiment
+from attack_enum import run_experiment
 import csv
 import math
 import sys

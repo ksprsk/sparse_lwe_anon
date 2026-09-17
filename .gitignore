@@ -1,5 +1,6 @@
 __pycache__/
-*.pyc
-*.csv
-*.png
-.claude/
+*.py[cod]
+.venv/
+venv/
+/results/
+.pytest_cache/

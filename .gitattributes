@@ -1,0 +1,4 @@
+# Preserve archived bytes even on checkouts with core.autocrlf enabled.
+/data/paper/trial_results.csv -text
+/data/paper/summary_results.csv -text
+/data/paper/experiment_config.json -text
